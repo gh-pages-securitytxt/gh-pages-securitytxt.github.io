@@ -7,21 +7,39 @@ mime types for different file extensions or server 301/302 redirects aren't poss
 See [security.txt](https://github.com/securitytxt/security-txt) for more information
 on what this file is for.
 
-Ideally, the following should work<sup>1</sup>:
-- <https://gh-pages-securitytxt.github.io/plain_security.txt>
-- <https://gh-pages-securitytxt.github.io/redirect_security.txt>
-(redirect to another URL<sup>2</sup>)
-- <https://gh-pages-securitytxt.github.io/.well-known/plain_security.txt>
-- <https://gh-pages-securitytxt.github.io/.well-known/redirect_security.txt>
-(redirect to another URL<sup>2</sup>)
+The following should work:
+- <https://gh-pages-securitytxt.github.io/security.txt> (static)
+- <https://gh-pages-securitytxt.github.io/.well-known/plain_security.txt> (static)
+- <https://gh-pages-securitytxt.github.io/.well-known/security.txt> (redirects to
+`/plain_security.txt`)
 
-The following _static_ files are also set up for the expected paths:
-- <https://gh-pages-securitytxt.github.io/security.txt>
-- <https://gh-pages-securitytxt.github.io/.well-known/security.txt>
+## .well-known/
 
-<sup>1</sup> : using `plain_`/`redirect_` to try direct or redirecting `security.txt` 
-files respectively, normally just `/security.txt` or `/.well-known/security.txt`
-would be used
+For this directory to work, you need to set `include: [".well-known"]` in the
+`_config.yml` file.
 
-<sup>2</sup> : should redirect to https://gotsecuritytxt.com/.well-known/security.txt
-in these test cases
+## Static file
+
+GitHub Pages recognised `.txt` files and sets the mime type correctly to
+`text/plain; charset=utf-8`.
+
+## How to do a redirect?
+
+_Note: that you should only redirect to another `security.txt` file (useful if
+centrally managed)._
+
+You need to create a `security.txt` _directory_ and an `index.html` file with the
+following content (replacing `DOMAIN` for your own):
+
+``` html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="refresh" content="0; https://DOMAIN/.well-known/security.txt" />
+  </head>
+  <body>
+    <p><a href="https://DOMAIN/.well-known/security.txt">https://DOMAIN/.well-known/security.txt</a></p>
+  </body>
+</html>
+```
+...so `blah.github.io/.well-known/security.txt/index.html`.
