@@ -11,7 +11,7 @@ The following should work:
 - <https://gh-pages-securitytxt.github.io/security.txt> (static)
 - <https://gh-pages-securitytxt.github.io/.well-known/plain_security.txt> (static)
 - <https://gh-pages-securitytxt.github.io/.well-known/security.txt> (redirects to
-`/plain_security.txt`)
+`/security.txt`)
 
 ## .well-known/
 
@@ -42,4 +42,5 @@ following content (replacing `DOMAIN` for your own):
   </body>
 </html>
 ```
-...so `blah.github.io/.well-known/security.txt/index.html`.
+...so `blah.github.io/.well-known/security.txt/index.html` and optionally
+`blah.github.io/security.txt/index.html`.
